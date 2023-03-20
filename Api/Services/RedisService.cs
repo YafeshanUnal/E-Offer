@@ -7,7 +7,7 @@ public class RedisService
 
     public RedisService()
     {
-        _redis = ConnectionMultiplexer.Connect("localhost:6379");
+        _redis = ConnectionMultiplexer.Connect("redis:6379,abortConnect=false");
     }
 
     // add User to Redis

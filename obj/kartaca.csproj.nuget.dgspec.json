@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Yafeshan\\Desktop\\kartaca\\kartaca.csproj": {}
+    "c:\\Users\\Yafeshan\\Desktop\\kartaca\\kartaca.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Yafeshan\\Desktop\\kartaca\\kartaca.csproj": {
+    "c:\\Users\\Yafeshan\\Desktop\\kartaca\\kartaca.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Yafeshan\\Desktop\\kartaca\\kartaca.csproj",
+        "projectUniqueName": "c:\\Users\\Yafeshan\\Desktop\\kartaca\\kartaca.csproj",
         "projectName": "kartaca",
-        "projectPath": "C:\\Users\\Yafeshan\\Desktop\\kartaca\\kartaca.csproj",
+        "projectPath": "c:\\Users\\Yafeshan\\Desktop\\kartaca\\kartaca.csproj",
         "packagesPath": "C:\\Users\\Yafeshan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Yafeshan\\Desktop\\kartaca\\obj\\",
+        "outputPath": "c:\\Users\\Yafeshan\\Desktop\\kartaca\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Yafeshan\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -25,7 +25,7 @@ export const Signup = () => {
       setIsLoading(false);
       return;
     }
-    const response = await fetch("http://localhost:5118/Signup", {
+    const response = await fetch("http://localhost:8000/Signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

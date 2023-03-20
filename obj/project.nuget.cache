@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "InEVg9IOFMQz26QYAFRVyGi4V4Y434GMh1ekWFWo4bTgEi4CNsUHIIlwy4zvTCqHznpAwA4vsP8EUNiBGQBAYA==",
+  "dgSpecHash": "sx1PiChF0iQ+snsp9BOrzeADIsJYS4z9i/qJkZq3bu4jeT1BJKLKWy4/sqnE5Gbj8xPAZzlVIK9yQU6rUZN3zA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Yafeshan\\Desktop\\kartaca\\kartaca.csproj",
+  "projectFilePath": "c:\\Users\\Yafeshan\\Desktop\\kartaca\\kartaca.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Yafeshan\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Yafeshan\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
