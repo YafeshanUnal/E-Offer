@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9f82e57b.css",
+    "main.js": "/static/js/main.a6f65987.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
+    "static/media/background.jpg": "/static/media/background.b9f2d6a2f91854a070c9.jpg",
+    "static/media/kartaca_logo_white.png": "/static/media/kartaca_logo_white.f6a5de49602c80dc1322.png",
+    "index.html": "/index.html",
+    "main.9f82e57b.css.map": "/static/css/main.9f82e57b.css.map",
+    "main.a6f65987.js.map": "/static/js/main.a6f65987.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9f82e57b.css",
+    "static/js/main.a6f65987.js"
+  ]
+}

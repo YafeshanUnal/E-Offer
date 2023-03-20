@@ -1,42 +1,39 @@
 import { images } from "../assets/images/images";
 import { icons } from "../assets/icons/icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useApp } from "../redux/useApp";
+import Login from "../components/Login";
 export const Homepage = () => {
   const [product, setProduct] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const { user, isLoggedIn, products, handleLogin, handleLogout } = useApp();
+  console.log(user.name, isLoggedIn);
 
-  // path yolununu al ve hangi id ye tıkladıysan onunla ilgili bilgileri getir
   const scrollDiv = (path) => {
     const element = document.getElementById(path);
     element.scrollIntoView({ behavior: "smooth" });
   };
 
-  const products = [
-    {
-      id: 1,
-      name: "Samsung Galaxy S21",
-      price: 1000,
-      image: images.samsung,
-    },
-    {
-      id: 2,
-      name: "Iphone 12",
-      price: 1000,
-      image: images.iphone,
-    },
-    {
-      id: 3,
-      name: "Huawei P40",
-      price: 1000,
-      image: images.huawei,
-    },
-  ];
-
+  useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > 1000);
+    }
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <div className="w-full flex flex-col">
       {/* Header */}
       <div className="w-full flex justify-between px-20 items-center fixed top-0 z-10 py-2 ">
         <a href="#home">
-          <img src={images.whiteLogo} alt="logo" className="h-14 w-17 cursor-pointer" />
+          <img
+            alt="logo"
+            className="h-14 w-17 cursor-pointer"
+            // scrolll home divine gelince logo beyaz olacak yoksa siyah olacak
+            src={isScrolled ? images.logo : images.whiteLogo}
+          />
         </a>
         <ul className="flex gap-6 text-3 font-medium text-emerald-500 ">
           <li className="mr-6 cursor-pointer">
@@ -91,55 +88,64 @@ export const Homepage = () => {
         </button>
       </div>
       {/* Products */}
-      <div
-        className="flex flex-col items-center justify-evenly h-screen w-full"
-        id="products"
-      >
-        <h1 className="text-6xl font-bold">Products</h1>
-        {/* Product List */}
-        <div className="flex items-center justify-center gap-10 w-2/3">
-          {products.map((product) => (
-            <div
-              className="flex flex-col items-center basis-1/3 h-full text-center p-4 hover:shadow-2xl hover:rounded-3xl hover:cursor-pointer hover:transform hover:scale-110"
-              key={product.id}
-            >
-              <button
-                className="absolute top-0 right-0 bg-emerald-500 text-white font-bold text-2xl px-4 py-2 rounded-br-3xl"
-                onClick={() => setProduct(true)}
+      {isLoggedIn ? (
+        <div
+          className="flex flex-col items-center justify-evenly h-screen w-full"
+          id="products"
+        >
+          <h1 className="text-6xl font-bold">Products</h1>
+          {/* Product List */}
+          <div className="flex items-center justify-center gap-10 w-2/3">
+            {products.map((product) => (
+              <div
+                className="group flex flex-col items-center basis-1/3 h-full text-center p-4 hover:shadow-2xl hover:rounded-3xl hover:cursor-pointer hover:transform hover:scale-110"
+                key={product.id}
               >
-                Give Offer
-              </button>
-              <img src={product.image} alt="product" className="h-40 w-40" />
-              <h1 className="text-4xl font-bold mt-4">{product.name}</h1>
-              <p className="text-2xl font-medium mt-4">{product.price} TL</p>
-            </div>
-          ))}
-          {product && (
-            <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-10">
-              <div className="flex flex-col items-center justify-center w-1/3 h-1/3 bg-white rounded-3xl">
-                <h1 className="text-4xl font-bold">Give Offer</h1>
-                <input
-                  type="text"
-                  className="w-2/3 h-12 border-2 border-emerald-500 rounded-3xl mt-4 px-4"
-                  placeholder="Offer Price"
-                />
-                <div className="flex w-full px-20 space-x-4">
-                  <button
-                    className="w-2/3 h-12 bg-whiye text-emerald-500 border border-emerald-500 font-bold text-2xl px-4 py-2 rounded-3xl mt-4"
-                    onClick={() => setProduct(false)}
-                  >
-                    Cancel
-                  </button>
-                  <button className="w-2/3 h-12 bg-emerald-500 text-white font-bold text-2xl px-4 py-2 rounded-3xl mt-4">
-                    Send Offer
-                  </button>
+                <button
+                  className="hidden group-hover:block absolute w-full h-1/5 top-0 right-0 bg-emerald-500 text-white font-bold text-2xl px-4 py-2 rounded-br-3xl"
+                  onClick={() => setProduct(true)}
+                >
+                  Give Offer
+                </button>
+                <img src={images[product.image]} alt="product" className="h-40 w-40" />
+                <h1 className="text-4xl font-bold mt-4">{product.name}</h1>
+                <p className="text-2xl font-medium mt-4">{product.price} TL</p>
+              </div>
+            ))}
+            {product && (
+              <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-10">
+                <div className="flex flex-col items-center justify-center w-1/3 h-1/3 bg-white rounded-3xl">
+                  <h1 className="text-4xl font-bold">Give Offer</h1>
+                  <input
+                    type="text"
+                    className="w-2/3 h-12 border-2 border-emerald-500 rounded-3xl mt-4 px-4"
+                    placeholder="Offer Price"
+                  />
+                  <div className="flex w-full px-20 space-x-4">
+                    <button
+                      className="w-2/3 h-12 bg-whiye text-emerald-500 border border-emerald-500 font-bold text-2xl px-4 py-2 rounded-3xl mt-4"
+                      onClick={() => setProduct(false)}
+                    >
+                      Cancel
+                    </button>
+                    <button className="w-2/3 h-12 bg-emerald-500 text-white font-bold text-2xl px-4 py-2 rounded-3xl mt-4">
+                      Send Offer
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </div>
-      1{/* About */}
+      ) : (
+        <div
+          className="flex flex-col items-center justify-center h-screen w-full"
+          id="products"
+        >
+          <Login />
+        </div>
+      )}
+      {/* About */}
       <div
         className="flex flex-col items-center justify-center h-screen w-full"
         id="about"
