@@ -53,9 +53,25 @@ namespace kartaca
             }
         }
 
+        public string GetName(string username, string password)
+        {
+            if (IsValidUser(username, password))
+            {
+                var redis = new RedisService();
+                var user = redis.GetUser(username, password);
+                return user;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         private bool IsValidUser(string username, string password)
         {
-            if (username == "yasin" && password == "1")
+            var redis = new RedisService();
+            var user = redis.GetUser(username, password);
+            if (user != null)
             {
                 return true;
             }

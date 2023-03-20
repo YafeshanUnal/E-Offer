@@ -2,9 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: {
-    name: "Yafeshan",
-    email: "Ünal",
-    token: "",
+    name: "",
   },
   isLoggedIn: false,
   login: {
@@ -12,6 +10,7 @@ const initialState = {
     isError: false,
     errorMessage: "",
   },
+  signup: false,
   products: [
     {
       id: 1,
@@ -40,6 +39,9 @@ const appSlice = createSlice({
   reducers: {
     setUser: (state, { payload }) => {
       state.user = payload;
+    },
+    setSignup: (state, { payload }) => {
+      state.signup = payload;
     },
     clearUser: (state) => {
       state.user = initialState.user;
@@ -78,6 +80,7 @@ export const {
   loginError,
   setProducts,
   clearProducts,
+  setSignup,
 } = appSlice.actions;
 
 export default appSlice.reducer;
@@ -85,7 +88,7 @@ export default appSlice.reducer;
 export const login = (username, password) => async (dispatch) => {
   dispatch(loginLoading());
   try {
-    const response = await fetch("http://localhost:8000/Login", {
+    const response = await fetch("http://localhost:5118/Login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -96,11 +99,11 @@ export const login = (username, password) => async (dispatch) => {
       }),
     });
     const data = await response.json();
-    if (data.error) {
-      dispatch(loginError(data.error));
-    } else {
+    if (response.status === 200) {
       dispatch(loginSuccess(data));
-      document.cookie = `token=${data.token}`;
+    } else {
+      dispatch(loginError(data));
+      console.log(data);
     }
   } catch (error) {
     dispatch(loginError(error.message));

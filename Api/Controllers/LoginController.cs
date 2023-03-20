@@ -30,7 +30,9 @@ namespace kartaca
                 return BadRequest(new { message = "Kullanıcı adı veya şifre hatalı." });
             }
 
-            return Ok(new { token });
+            var name = _loginService.GetName(request.username, request.password);
+
+            return Ok(new { token = token, name = name });
         }
     }
 }

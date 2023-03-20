@@ -3,11 +3,18 @@ import { icons } from "../assets/icons/icons";
 import React, { useState, useEffect } from "react";
 import { useApp } from "../redux/useApp";
 import Login from "../components/Login";
+import { toast } from "react-toastify";
+import { Signup } from "../components/Signup";
 export const Homepage = () => {
   const [product, setProduct] = useState(false);
+  const [signup, setSignup] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { user, isLoggedIn, products, handleLogin, handleLogout } = useApp();
+  const { user, isLoggedIn, products, handleLogin, handleLogout, loginError } = useApp();
   console.log(user.name, isLoggedIn);
+
+  if (loginError) {
+    toast.error(loginError);
+  }
 
   const scrollDiv = (path) => {
     const element = document.getElementById(path);
@@ -17,6 +24,7 @@ export const Homepage = () => {
   useEffect(() => {
     function handleScroll() {
       setIsScrolled(window.scrollY > 1000);
+      toast.success("Welcome to Kartaca Shop");
     }
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -26,7 +34,7 @@ export const Homepage = () => {
   return (
     <div className="w-full flex flex-col">
       {/* Header */}
-      <div className="w-full flex justify-between px-20 items-center fixed top-0 z-10 py-2 ">
+      <div className="w-full flex justify-between px-20 fixed top-0 z-10 py-2 ">
         <a href="#home">
           <img
             alt="logo"
@@ -56,6 +64,27 @@ export const Homepage = () => {
               About
             </a>
           </li>
+          {isLoggedIn ? (
+            <li className="mr-6 cursor-pointer">
+              <span className="flex items-center gap-2">Welcome {user.name}</span>
+            </li>
+          ) : (
+            <li className="mr-6 cursor-pointer relative">
+              <button
+                className="flex items-center gap-2 "
+                onClick={() => setSignup(!signup)}
+              >
+                Sign Up
+              </button>
+              {signup ? (
+                <div className="bg-white rounded-2xl p-4 absolute w-[400px] right-0 mt-4">
+                  <Signup />
+                </div>
+              ) : (
+                ""
+              )}
+            </li>
+          )}
         </ul>
       </div>
       {/* Welcome */}
@@ -158,6 +187,7 @@ export const Homepage = () => {
           voluptatem quibusdam
         </p>
       </div>
+      <toast delay={3000} autohide className="bg-emerald-500 text-white" />
     </div>
   );
 };

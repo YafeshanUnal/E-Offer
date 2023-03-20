@@ -39,8 +39,11 @@ builder.Services
             ValidateAudience = false
         };
     });
+
+builder.Services.AddScoped<SignupService>();
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<RedisService>();
 
 builder.Services.AddControllers();
 

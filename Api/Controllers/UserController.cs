@@ -20,11 +20,30 @@ namespace kartaca
             return Ok("Docker");
         }
 
-        // [HttpPost]
-        // public IActionResult SaveUser([FromBody] UserModal user)
-        // {
-        //     _redisService.AddUser(user.username, user.password, user.phone);
-        //     return Ok();
-        // }
+        // get All Users
+        [HttpGet("users")]
+        public IActionResult GetAllUsers()
+        {
+            var redis = new RedisService();
+            var users = redis.GetAllUsers();
+            return Ok(users);
+        }
+
+        // get User
+        [HttpGet("user")]
+        public IActionResult GetUser([FromQuery] string username, [FromQuery] string password)
+        {
+            var redis = new RedisService();
+            var user = redis.GetUser(username, password);
+            return Ok(user);
+        }
+
+        [HttpGet("redistest")]
+        public IActionResult RedisTest()
+        {
+            var redis = new RedisService();
+            var redisTest = redis.GetRedisTest();
+            return Ok(redisTest);
+        }
     }
 }
