@@ -9,8 +9,17 @@ export const Homepage = () => {
   const [product, setProduct] = useState(false);
   const [signup, setSignup] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [offerPrice, setOfferPrice] = useState(0);
+  const [name, setName] = useState("");
   const { user, isLoggedIn, products, handleLogin, handleLogout, loginError } = useApp();
-  console.log(user.name, isLoggedIn);
+  console.log(
+    "Name: ",
+    user.name,
+    "Username: ",
+    user.username,
+    "Password: ",
+    user.password,
+  );
 
   if (loginError) {
     toast.error(loginError);
@@ -31,6 +40,29 @@ export const Homepage = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const handleOffer = (e) => {
+    e.preventDefault();
+    const userId = `${user.username}&${user.password}`;
+    fetch("http://localhost:8000/Offer", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        offerPrice: offerPrice,
+        userId: userId,
+      }),
+    }).then((response) => {
+      if (response.ok) {
+        toast.success("Offer is sent");
+      } else {
+        toast.error("Offer is not sent");
+      }
+    });
+  };
+
   return (
     <div className="w-full flex flex-col">
       {/* Header */}
@@ -132,7 +164,10 @@ export const Homepage = () => {
               >
                 <button
                   className="hidden group-hover:block absolute w-full h-1/5 top-0 right-0 bg-emerald-500 text-white font-bold text-2xl px-4 py-2 rounded-br-3xl"
-                  onClick={() => setProduct(true)}
+                  onClick={() => {
+                    setProduct(product);
+                    setName(product.brand);
+                  }}
                 >
                   Give Offer
                 </button>
@@ -149,6 +184,9 @@ export const Homepage = () => {
                     type="text"
                     className="w-2/3 h-12 border-2 border-emerald-500 rounded-3xl mt-4 px-4"
                     placeholder="Offer Price"
+                    name="offerPrice"
+                    value={offerPrice}
+                    onChange={(e) => setOfferPrice(e.target.value)}
                   />
                   <div className="flex w-full px-20 space-x-4">
                     <button
@@ -157,7 +195,14 @@ export const Homepage = () => {
                     >
                       Cancel
                     </button>
-                    <button className="w-2/3 h-12 bg-emerald-500 text-white font-bold text-2xl px-4 py-2 rounded-3xl mt-4">
+                    <button
+                      className="w-2/3 h-12 bg-emerald-500 text-white font-bold text-2xl px-4 py-2 rounded-3xl mt-4"
+                      onClick={(e) => {
+                        setProduct(false);
+                        handleOffer(e);
+                      }}
+                      type="submit"
+                    >
                       Send Offer
                     </button>
                   </div>

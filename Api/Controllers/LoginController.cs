@@ -32,7 +32,15 @@ namespace kartaca
 
             var name = _loginService.GetName(request.username, request.password);
 
-            return Ok(new { token = token, name = name });
+            return Ok(
+                new
+                {
+                    token = token,
+                    name = name,
+                    username = request.username,
+                    password = request.password
+                }
+            );
         }
     }
 }

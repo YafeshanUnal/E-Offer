@@ -4,15 +4,18 @@ using StackExchange.Redis;
 public class RedisService
 {
     private readonly ConnectionMultiplexer _redis;
+    private readonly IServer _server;
 
     public RedisService()
     {
         _redis = ConnectionMultiplexer.Connect("redis:6379,abortConnect=false");
+        _server = _redis.GetServer("redis:6379");
     }
 
     // add User to Redis
     public void AddUser(string name, string username, string password, string phone)
     {
+        System.Console.WriteLine("Redis Triggered");
         var db = _redis.GetDatabase();
         HashEntry[] userFields = new HashEntry[]
         {
@@ -49,6 +52,14 @@ public class RedisService
         return user;
     }
 
+    public string GetUserById(string id)
+    {
+        var db = _redis.GetDatabase();
+        var user = db.HashGet($"users:{id}", "name");
+
+        return user;
+    }
+
     // redis test
     public string GetRedisTest()
     {
@@ -79,5 +90,23 @@ public class RedisService
     {
         var db = _redis.GetDatabase();
         db.StringSet(token, username);
+    }
+
+    public void AddOffer(string name, string offerPrice, string userId)
+    {
+        var db = _redis.GetDatabase();
+        var id = $"{name}&{offerPrice}&{userId}";
+        // bunları key olarak kaydet direkt set key value şeklinde HashEntry değil
+        db.StringSet("offers:" + id, id);
+    }
+
+    public string[] GetOffers()
+    {
+        var db = _redis.GetDatabase();
+        RedisKey[] keys = _server.Keys(pattern: "offers:*").ToArray();
+        RedisValue[] values = db.StringGet(keys);
+        string[] offers = values.Select(v => (string)v).ToArray();
+
+        return offers;
     }
 }

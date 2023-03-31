@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   user: {
     name: "",
+    username: "",
+    password: "",
   },
   isLoggedIn: false,
   login: {
@@ -17,18 +19,21 @@ const initialState = {
       name: "Samsung Galaxy S21",
       price: 1000,
       image: "samsung",
+      brand: "Samsung",
     },
     {
       id: 2,
       name: "Iphone 12",
       price: 1000,
       image: "iphone",
+      brand: "Apple",
     },
     {
       id: 3,
       name: "Huawei P40",
       price: 1000,
       image: "huawei",
+      brand: "Huawei",
     },
   ],
 };
@@ -101,6 +106,7 @@ export const login = (username, password) => async (dispatch) => {
     const data = await response.json();
     if (response.status === 200) {
       dispatch(loginSuccess(data));
+      document.cookie = `token=${data.token}`;
     } else {
       dispatch(loginError(data));
       console.log(data);
