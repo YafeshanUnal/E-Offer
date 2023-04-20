@@ -9,7 +9,7 @@
 
 ## Kurulum
 
-1. Projeyi klonlayın: `git clone https://github.com/YafeshanUnal/staj-challenge.git`
+1. Projeyi klonlayın: `git clone https://github.com/YafeshanUnal/E-Offer.git`
 2. Terminali açın ve projenin klonlandığı dizine gidin: `cd staj-challenge`
 3. Docker container'larını oluşturun: `docker-compose build`
 4. Docker container'larını başlatın: `docker-compose up`
