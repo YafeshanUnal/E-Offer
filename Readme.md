@@ -1,4 +1,4 @@
-# Kartaca Staj Projesi
+# E-Offer
 
 ## Bu uygulamada giriş yapılan kullanıcıların verilerini saklayan bir backend servisi ve bu verileri gösteren bir frontend uygulaması bulunmaktadır. Giriş yapan kişiler uygulama içindeki ürünlere girebilirler giriş yapmadan ürünleri göremezler ve teklif veremezler uygulama da herhangi bir kaydı bulunmayan kişiler signup kısmından kayıt olabilirler.
 
